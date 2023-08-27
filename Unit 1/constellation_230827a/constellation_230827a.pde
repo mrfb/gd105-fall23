@@ -1,5 +1,6 @@
 // this program makes a simple smily face
 // using points and lines
+// see: https://mbalousek.notion.site/105-Lec-01-Getting-Started-b7d4155b87f8456292fd46160496474b?pvs=4
 // — mrfb 2023-08-27
 
 void setup() {
