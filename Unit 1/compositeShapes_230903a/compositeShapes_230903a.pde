@@ -75,7 +75,21 @@ void draw(){
   circle(anchorBL.x, anchorBL.y, width*0.05);
   
   // bottom-right square
+  fill(darkInk);
+  noStroke();
+  quad(anchorBR.x + -50, anchorBR.y + -45,
+       anchorBR.x + 76, anchorBR.y + -76,
+       anchorBR.x + 67, anchorBR.y + 19,
+       anchorBR.x + -40, anchorBR.y + 39);
   
-  
+  stroke(paper);
+  line(anchorBR.x + -165, anchorBR.y + -18,
+       anchorBR.x + 155, anchorBR.y + -108);
+  line(anchorBR.x + -77, anchorBR.y + -154,
+       anchorBR.x + -15, anchorBR.y + 174);
+  line(anchorBR.x + -202, anchorBR.y + 62,
+       anchorBR.x + 203, anchorBR.y + 0);
+  line(anchorBR.x + 61, anchorBR.y + -221,
+       anchorBR.x + 80, anchorBR.y + 165);
   
 }
