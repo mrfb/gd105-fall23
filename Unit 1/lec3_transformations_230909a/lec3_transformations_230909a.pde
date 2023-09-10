@@ -78,5 +78,24 @@ void draw(){
   rotate(spinAmount);
   scale(shrinkAmount);
   translate(translateAmount.x, translateAmount.y);
-  rect(shapeAnchor.x, shapeAnchor.y, shapeLength, 50);  
+  rect(shapeAnchor.x, shapeAnchor.y, shapeLength, 50); 
+  
+  stroke(#484637); // dark brown for a little more warmth
+  strokeWeight(30);
+  
+  // draw a smiley face on top
+  resetMatrix();
+  point(width * 0.45, height * 0.45);
+  point(width * 0.55, height * 0.45);
+  translate(width/2, height/2);
+  rotate(TAU * 0.25);
+  noFill();
+  arc(0, 0, width * 0.15, height * 0.15, TAU * -0.10, TAU * 0.10);
+  
+  // save the canvas on the first frame
+  if(frameCount == 1){
+    String filename = "output";
+    save(filename + ".png");
+    println("canvas saved as " + filename + ".png");
+  }
 }
