@@ -1,9 +1,15 @@
 // Lecture 4 Demonstration
 // Making an vintage Advice Animal
 
+// declare image at the global scope
+PImage caiman;
+
 void setup(){
   size(1024, 1024);
   noStroke();
+  
+  // initialize image
+  caiman = loadImage("caiman.png");
 }
 
 void draw(){
@@ -11,6 +17,8 @@ void draw(){
   drawBackground();
   
   // slap an image of an animal on top
+  scale(0.76);
+  image(caiman, 0, 228);
   
   // draw text at the top and bottom
 }
@@ -52,4 +60,6 @@ void drawBackground(){
   triangle(0, 0,
            width*0.50, height*0.00,
            width*0.50, height*-0.50);
+           
+  resetMatrix();
 }
