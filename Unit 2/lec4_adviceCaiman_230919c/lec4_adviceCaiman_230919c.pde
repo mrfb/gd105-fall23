@@ -2,10 +2,10 @@
 // Making an vintage Advice Animal
 
 // tweaking variables
-// advice caiman gives good advice...
+// advice caiman follows sensible advice...
 String topText = "I SLEPT FOR 8 HOURS";
-// ...and then bad advice
-String bottomText = "AND THEN SLEPT\nTHROUGH CLASS";
+// ...and then suffers bad consequences
+String bottomText = "ALL THE WAY\nTHROUGH CLASS";
 
 // declare image + font at the global scope
 PImage caiman;
