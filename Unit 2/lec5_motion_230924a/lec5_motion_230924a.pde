@@ -1,80 +1,78 @@
-PVector linearMotion;
+// A demonstration of motion for a kind of "screensaver" for my students
+// This program has four points randomly moving, and
+// draws two lines between them. Their colors slowly change over time.
+// — mrfb 20230924
 
-PVector start, stop, lerpMotion;
-float interpolation = 0.0;
-
-PVector mouseMotion;
-PVector trackingMotion;
-
-PVector circularMotion;
+PVector A, B, C, D;
+float ABhue, CDhue;
 
 void setup(){
-  size(1024, 1024);
+  fullScreen();
   background(255);
-  noStroke();
-  textAlign(RIGHT, CENTER);
   
-  //frameRate(1);
+  A = new PVector(0, 0);
+  B = new PVector(0, 0);
+  C = new PVector(0, 0);
+  D = new PVector(0, 0);
   
-  linearMotion = new PVector(64, 64 * 1);
-  start = new PVector(64, 64 * 2);
-  stop = new PVector(width - 64, start.y);
-  lerpMotion = new PVector(start.x, start.y);
+  colorMode(HSB, 360, 1, 1);
   
-  mouseMotion = new PVector(64, 64 * 3);
-  trackingMotion = new PVector(64, 64 * 4);
+  // this is a hue on the color wheel for the AB line and the CD line
+  ABhue = 0;
+  CDhue = 180;
   
-  circularMotion = new PVector(0, 0);
+  // I've turned off smoothing because I think it looks more interesting.
+  noSmooth();
 }
 
 void draw(){
-  // fade stuff out over time
-  // with a translucent white bg
-  fill(255);
-  rect(0, 0, width, height);
-  
-  // draw all of our circles
-  int ballSize = 60;
-  fill(0, 172);
-  
-  // linearMotion moves at a constant speed
-  float linearSpeed = 5;
-  circle(linearMotion.x, linearMotion.y, ballSize);
-  linearMotion.x += linearSpeed;
-  text("linearMotion", linearMotion.x - ballSize, linearMotion.y);
-  
-  // lerpMotion moves smoothly between a start and stop point
-  circle(lerpMotion.x, lerpMotion.y, ballSize);
-  interpolation += 0.01;
-  interpolation = constrain(interpolation, 0, 1);
-  lerpMotion.x = lerp(start.x, stop.x, interpolation);
-  text("lerpMotion", lerpMotion.x - ballSize, lerpMotion.y);
-  
-  //// mouseMotion follows the mouse
-  //mouseMotion.x = mouseX;
-  //mouseMotion.y = mouseY;
-  //circle(mouseMotion.x, mouseMotion.y, ballSize);
-  //text("mouseMotion", mouseMotion.x - ballSize, mouseMotion.y);
-  
-  //// trackingMotion moves a % of the distance to the mouse
-  //float trackingSpeed = 0.10;
-  //trackingMotion.x = lerp(trackingMotion.x, mouseX, trackingSpeed);
-  //trackingMotion.y = lerp(trackingMotion.y, mouseY, trackingSpeed);
-  //circle(trackingMotion.x, trackingMotion.y, ballSize);
-  //text("trackingMotion", trackingMotion.x - ballSize, trackingMotion.y);
-  
-  // translate to the center);
+  // our origin point is the center of the screen
   translate(width/2, height/2);
-  stroke(0);
-  line(-width, 0, width, 0);
-  line(0, -height, 0, height);
-  noStroke();
-  float animationSpeed = .003;
-  float radius = 256;
-  circularMotion.x = cos(frameCount * animationSpeed * TAU) * radius;
-  circularMotion.y = sin(frameCount * animationSpeed * TAU) * radius;
-  circle(circularMotion.x, circularMotion.y, ballSize);
   
+  // draw a white line just to the left first
+  stroke(#FFFFFF);
+  line(A.x - 1, A.y, B.x - 1, B.y);
+  line(C.x - 1, C.y, D.x - 1, D.y);
   
+  // then draw a line at our actual point
+  // the color of the lines will randomly walk the color wheel
+  float hueWanderlust = 0.05;
+  ABhue += random(hueWanderlust);
+  ABhue %= 360;
+  CDhue += random(hueWanderlust);
+  CDhue %= 360;
+  
+  // set the pen color, draw the line
+  // these are saturated, but dark colors
+  // that look vaguely ballpoint pen-y
+  stroke(ABhue, 1.00, 0.35);
+  line(A.x, A.y, B.x, B.y);
+  stroke(CDhue, 1.00, 0.35);
+  line(C.x, C.y, D.x, D.y);
+  
+  // random walk each point
+  // we can control a lot about the general character of the
+  // drawing by changing these scalar values--these cause points
+  // to favor or disfavor moving in a particular direction
+  float wanderlust = height / 256;
+  println("wanderlust: " + wanderlust);
+  A.x += random(wanderlust * -1.0, wanderlust * 1.0);
+  A.y += random(wanderlust * -1.0, wanderlust * 1.0);
+  B.x += random(wanderlust * -1.0, wanderlust * 1.0);
+  B.y += random(wanderlust * -1.0, wanderlust * 1.0);
+  C.x += random(wanderlust * -1.0, wanderlust * 1.0);
+  C.y += random(wanderlust * -1.0, wanderlust * 1.0);
+  D.x += random(wanderlust * -1.0, wanderlust * 1.0);
+  D.y += random(wanderlust * -1.0, wanderlust * 1.0);
+  
+  // snap back to the center line if the points go off-canvas
+  A.x %= width/2;
+  A.y %= height/2;
+  B.x %= width/2;
+  B.y %= height/2;
+  C.x %= width/2;
+  C.y %= height/2;
+  D.x %= width/2;
+  D.y %= height/2;
   
 }
