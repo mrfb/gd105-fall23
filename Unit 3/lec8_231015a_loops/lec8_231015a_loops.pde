@@ -1,5 +1,5 @@
 // length of a full cycle of animation
-int frames = 512;
+int frames = 256;
 
 void setup() {
   size(1000, 1000);
@@ -42,4 +42,7 @@ void draw() {
     line(width*.125 * pulse, 0, -width*.25 * pulse, 200);
   }
   
+  if(progress <= 1){
+    saveFrame("frames/####.png");
+  }
 }
